@@ -1,3 +1,5 @@
+gunicorn
+uvicorn
 setuptools
 wheel
 aiohappyeyeballs==2.4.4
