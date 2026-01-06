@@ -5,11 +5,11 @@ from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
 ):
-    if label is not None:
-        y = X[label]
+    if label is not None and label in X.columns: # Check if label exists
+        y = X[label].values
         X = X.drop([label], axis=1)
     else:
-        y = np.array([])
+        y = None # Set to None if not present
 
     X_categorical = X[categorical_features].values
     X_continuous = X.drop(*[categorical_features], axis=1)
@@ -21,10 +21,12 @@ def process_data(
         y = lb.fit_transform(y).flatten()
     else:
         X_categorical = encoder.transform(X_categorical)
-        try:
-            y = lb.transform(y).flatten()
-        except AttributeError:
-            pass
+        # Only transform y if it's not None and we have a LabelBinarizer
+        if y is not None and lb is not None:
+            try:
+                y = lb.transform(y).flatten()
+            except Exception:
+                pass
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
