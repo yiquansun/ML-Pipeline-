@@ -54,7 +54,7 @@ async def root():
 # 5. Prediction Endpoint (POST)
 @app.post("/predict")
 async def predict(data: CensusData):
-    if model is None:
+    if model is None or encoder is None or lb is None:
         return {"error": "Model files not found. Deployment configuration error."}
 
     # Convert Pydantic data to a DataFrame (using aliases to match training data columns)

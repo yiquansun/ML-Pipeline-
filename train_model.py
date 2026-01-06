@@ -20,7 +20,8 @@ train, test = train_test_split(data, test_size=0.20)
 X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
-
+joblib.dump(lb, "model/label_binarizer.joblib")
+print("Label Binarizer saved successfully!")
 # Train model
 model = RandomForestClassifier()
 model.fit(X_train, y_train)
