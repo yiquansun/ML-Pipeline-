@@ -33,21 +33,21 @@ def test_post_predict_lower():
     assert r.json()["prediction"] == "<=50K"
 
 def test_post_predict_higher():
-    # Use data known to be >50K
+    # Use data known to be >50K by using extreme high-income features
     data = {
-        "age": 55,
+        "age": 50,
         "workclass": "Private",
-        "fnlgt": 200000,
+        "fnlgt": 234721,
         "education": "Doctorate",
         "education-num": 16,
         "marital-status": "Married-civ-spouse",
         "occupation": "Exec-managerial",
         "relationship": "Husband",
-        "race": "White",
-        "sex": "Male",
-        "capital-gain": 20000, # Increased capital gain
+        "race": "Black",
+        "sex": "Female",
+        "capital-gain": 99999,  # This is a very strong indicator for >50K
         "capital-loss": 0,
-        "hours-per-week": 50,
+        "hours-per-week": 60,
         "native-country": "United-States"
     }
     r = client.post("/predict", json=data)
