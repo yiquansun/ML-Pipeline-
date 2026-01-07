@@ -5,11 +5,11 @@ from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
 ):
-    if label is not None and label in X.columns: # Check if label exists
+    if label is not None and label in X.columns:
         y = X[label].values
         X = X.drop([label], axis=1)
     else:
-        y = None # Set to None if not present
+        y = None
 
     X_categorical = X[categorical_features].values
     X_continuous = X.drop(*[categorical_features], axis=1)

@@ -8,6 +8,7 @@ def train_model(X_train, y_train):
     return model
 
 
+# Ensure this name is exactly 'compute_model_metrics'
 def compute_model_metrics(y, preds):
     precision = precision_score(y, preds, pos_label=1)
     recall = recall_score(y, preds, pos_label=1)
