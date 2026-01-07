@@ -2,6 +2,8 @@ import sys
 sys.path.append(".") # This tells Python to look in the root folder for main.py
 from main import app
 from fastapi.testclient import TestClient
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 client = TestClient(app)
 
