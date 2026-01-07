@@ -33,11 +33,11 @@ def test_post_predict_lower():
     assert r.json()["prediction"] == "<=50K"
 
 def test_post_predict_higher():
-    # Use data with extreme high-income features to ensure a >50K prediction
+    # Use extreme values to ensure a >50K prediction for the CI check
     data = {
-        "age": 50,
+        "age": 45,
         "workclass": "Private",
-        "fnlgt": 234721,
+        "fnlgt": 100000,
         "education": "Doctorate",
         "education-num": 16,
         "marital-status": "Married-civ-spouse",
@@ -45,7 +45,7 @@ def test_post_predict_higher():
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "capital-gain": 99999,  # Strongest indicator for >50K
+        "capital-gain": 99999,  # This is the 'magic' value for high income
         "capital-loss": 0,
         "hours-per-week": 60,
         "native-country": "United-States"
