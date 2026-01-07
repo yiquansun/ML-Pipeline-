@@ -1,11 +1,11 @@
 import sys
 sys.path.append(".") # This tells Python to look in the root folder for main.py
-from main import app
-from fastapi.testclient import TestClient
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from ml.model import compute_model_metrics, inference # in test_model.py
 
+from fastapi.testclient import TestClient
+from ml.model import compute_model_metrics, inference # in test_model.py
+from main import app
 client = TestClient(app)
 
 def test_get_root():

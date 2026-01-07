@@ -1,14 +1,16 @@
 import sys
 sys.path.append(".") # This tells Python to look in the root folder for main.py
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pytest
 import pandas as pd
 import numpy as np
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import joblib
 from ml.data import process_data
-from main import app # in test_main.py
 from ml.model import compute_model_metrics, inference
+from main import app #
+
 
 # Setup data for testing
 @pytest.fixture
