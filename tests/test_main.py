@@ -1,12 +1,11 @@
 import os
 import sys
-from fastapi.testclient import TestClient
-
 # 1. Set the path FIRST before importing local modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # 2. Now perform local imports
 from main import app
+from fastapi.testclient import TestClient
 
 client = TestClient(app)
 
