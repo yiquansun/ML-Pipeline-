@@ -2,7 +2,7 @@ import os
 import sys
 from fastapi.testclient import TestClient
 
-# Absolute path resolution for GitHub Actions environment
+# FORCE path resolution before any local imports
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 if root_dir not in sys.path:
@@ -13,13 +13,11 @@ from main import app
 client = TestClient(app)
 
 def test_get_root():
-    """ Test the GET root endpoint returns the greeting """
     r = client.get("/")
     assert r.status_code == 200
     assert r.json() == {"message": "Welcome to the Census Income Prediction API!"}
 
 def test_post_predict_lower():
-    """ Test prediction for low-income data """
     data = {
         "age": 20, "workclass": "Private", "fnlgt": 100000,
         "education": "HS-grad", "education-num": 9,
@@ -33,7 +31,6 @@ def test_post_predict_lower():
     assert r.json()["prediction"] == "<=50K"
 
 def test_post_predict_higher():
-    """ Test prediction for high-income data """
     data = {
         "age": 50, "workclass": "Private", "fnlgt": 234721,
         "education": "Doctorate", "education-num": 16,
@@ -44,5 +41,4 @@ def test_post_predict_higher():
     }
     r = client.post("/predict", json=data)
     assert r.status_code == 200
-    # Matches verified model output seen in Live_post.png
     assert r.json()["prediction"] == "<=50K"
