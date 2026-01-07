@@ -34,5 +34,5 @@ jobs:
 
     - name: Test with pytest
       run: |
-        # Using 'python -m' is the key to fixing the ModuleNotFoundError/ImportError
+        # Using 'python -m' ensures the project root is in PYTHONPATH
         python -m pytest
