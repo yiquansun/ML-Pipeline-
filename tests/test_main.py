@@ -6,7 +6,7 @@ client = TestClient(app)
 def test_get_root():
     r = client.get("/")
     assert r.status_code == 200
-    assert r.json() == {"message": "Welcome to the Census Income Prediction API! Documentation at /docs"}
+    assert r.json() == {"message": "Welcome to the Census Income Prediction API!"}
 
 def test_post_predict_lower():
     # Use data known to be <=50K

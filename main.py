@@ -49,7 +49,7 @@ class CensusData(BaseModel):
 # 4. Root Endpoint (GET)
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Census Income Prediction API! Documentation at /docs"}
+    return {"message": "Welcome to the Census Income Prediction API!"}
 
 # 5. Prediction Endpoint (POST)
 @app.post("/predict")
