@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Robust path insertion for GitHub Actions
+# Absolute path resolution for GitHub Actions environment
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 if root_dir not in sys.path:

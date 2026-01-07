@@ -2,7 +2,7 @@ import os
 import sys
 from fastapi.testclient import TestClient
 
-# Robust path insertion for GitHub Actions
+# Absolute path resolution for GitHub Actions environment
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 if root_dir not in sys.path:
@@ -44,5 +44,5 @@ def test_post_predict_higher():
     }
     r = client.post("/predict", json=data)
     assert r.status_code == 200
-    # Verified alignment with actual model behavior (Live_post.png)
+    # Matches verified model output seen in Live_post.png
     assert r.json()["prediction"] == "<=50K"
