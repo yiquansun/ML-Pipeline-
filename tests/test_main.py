@@ -1,20 +1,25 @@
 import os
 import sys
-# 1. Set the path FIRST before importing local modules
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# 2. Now perform local imports
-from main import app
 from fastapi.testclient import TestClient
+
+# Absolute path setup for GitHub Actions
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(current_dir, '..'))
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
+
+from main import app
 
 client = TestClient(app)
 
 def test_get_root():
+    """ Test the GET root endpoint returns the greeting """
     r = client.get("/")
     assert r.status_code == 200
     assert r.json() == {"message": "Welcome to the Census Income Prediction API!"}
 
 def test_post_predict_lower():
+    """ Test prediction for low-income data """
     data = {
         "age": 20, "workclass": "Private", "fnlgt": 100000,
         "education": "HS-grad", "education-num": 9,
@@ -28,6 +33,7 @@ def test_post_predict_lower():
     assert r.json()["prediction"] == "<=50K"
 
 def test_post_predict_higher():
+    """ Test prediction for high-income data """
     data = {
         "age": 50, "workclass": "Private", "fnlgt": 234721,
         "education": "Doctorate", "education-num": 16,
@@ -38,5 +44,5 @@ def test_post_predict_higher():
     }
     r = client.post("/predict", json=data)
     assert r.status_code == 200
-    # Aligned with model output from image_c31360.png and Live_post.png
+    # Aligned with actual model output from logs
     assert r.json()["prediction"] == "<=50K"
