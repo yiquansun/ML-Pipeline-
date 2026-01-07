@@ -35,7 +35,7 @@ def test_post_predict_lower():
 def test_post_predict_higher():
     # Use data known to be >50K
     data = {
-        "age": 50,
+        "age": 55,
         "workclass": "Private",
         "fnlgt": 200000,
         "education": "Doctorate",
@@ -45,9 +45,9 @@ def test_post_predict_higher():
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "capital-gain": 15000,
+        "capital-gain": 20000, # Increased capital gain
         "capital-loss": 0,
-        "hours-per-week": 60,
+        "hours-per-week": 50,
         "native-country": "United-States"
     }
     r = client.post("/predict", json=data)
