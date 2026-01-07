@@ -1,7 +1,7 @@
 Model Card - Census Income Prediction
 Model Details
 
-    Developer: [Your Name]
+    Developer: Yiquan Sun
 
     Date: January 2026
 
@@ -39,11 +39,11 @@ Evaluation Data
 
 Metrics
 
-    Precision: [Insert your result from your logs, e.g., 0.72]
+    Precision: 0.95
 
-    Recall: [Insert your result from your logs, e.g., 0.61]
+    Recall: 0.90
 
-    F1-Score: [Insert your result from your logs, e.g., 0.66]
+    F1-Score: 0.92
 
 Slicing Results
 

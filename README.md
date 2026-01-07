@@ -52,8 +52,10 @@ The API is built with FastAPI and uses Pydantic for data validation, specificall
 
 Include the following images in your submission folder or embed them here:
 
-    CI_Success.png: Showing passing GitHub Actions.
+    continuous_integration.png: Showing passing GitHub Actions.
 
     Render_Deployment.png: Showing the "Live" status on the Render dashboard.
 
-    Live_API_Response.png: Showing the live_post.py output with a 200 Status Code.
+    Live_post.png: Showing the live_post.py output with a 200 Status Code.
+	
+	example.png: REST API
