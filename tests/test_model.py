@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Absolute path setup for GitHub Actions
+# Ensure the root directory is at the front of the Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..'))
 if root_dir not in sys.path:
@@ -50,7 +50,7 @@ def test_inference_output(data):
     model_path = os.path.join(root_dir, "model", "model.pkl")
     if os.path.exists(model_path):
         model = joblib.load(model_path)
-        # Assuming your model expects 108 features after encoding
+        # Dummy input sized for standard census features (adjust if needed)
         dummy_input = np.zeros((1, 108)) 
         preds = inference(model, dummy_input)
         
