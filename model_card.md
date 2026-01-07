@@ -23,9 +23,7 @@ Training Data
 
     Description: The dataset contains 32,561 records with features such as age, workclass, education, and marital status.
 
-    Pre-processing:
-
-        Leading and trailing spaces were removed from strings.
+    Pre-processing: * Leading and trailing spaces were removed from strings to ensure data consistency.
 
         Categorical variables were encoded using OneHotEncoder.
 
@@ -45,17 +43,17 @@ Metrics
 
     F1-Score: 0.92
 
-Slicing Results
+Slicing Analysis
 
-    Performance was evaluated across categorical slices (e.g., Education, Race, Sex) to identify potential bias.
+    Methodology: Performance was evaluated across categorical slices (e.g., Education, Race, Sex) to identify potential bias.
 
-    Findings: The model generally performs best on the Bachelors and Masters education slices, while showing lower recall on the Private workclass slice. Full results are available in slice_output.txt.
+    Findings: The model generally performs best on the Bachelors and Masters education slices, while showing lower recall on the Private workclass slice. Full results are documented in slice_output.txt.
 
 Ethical Considerations
 
     Bias: The dataset is from 1994 and may reflect historical socioeconomic biases regarding gender and race.
 
-    Privacy: The data is anonymized, but model predictions based on sensitive attributes should be handled with care.
+    Privacy: The data is anonymized, but model predictions based on sensitive attributes should be handled with care to avoid discriminatory outcomes.
 
 Caveats and Recommendations
 

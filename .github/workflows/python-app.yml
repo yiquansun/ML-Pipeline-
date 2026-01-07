@@ -29,10 +29,9 @@ jobs:
 
     - name: Lint with flake8
       run: |
-        # exit-zero treats all errors as warnings so the build doesn't fail
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        # We exclude the starter folder and specific helper scripts to focus on core code
+        flake8 . --count --exclude=starter,data/data_cleaning.py,model/slice_performance.py,model/train_model.py --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Test with pytest
       run: |
-        # Using 'python -m' ensures the project root is in PYTHONPATH
         python -m pytest

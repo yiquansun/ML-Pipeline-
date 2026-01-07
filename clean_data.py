@@ -1,16 +1,18 @@
 import pandas as pd
 
-def clean_census_data(file_path, output_path):
-    # Load data
-    # skipinitialspace=True handles the most common issue in this dataset
-    df = pd.read_csv(file_path, skipinitialspace=True)
-    
-    # Remove all remaining spaces from string columns just in case
-    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-    
-    # Save the clean version
-    df.to_csv(output_path, index=False)
-    print(f"Cleaned data saved to {output_path}")
+
+def clean_census_data(path):
+    """
+    Remove leading and trailing spaces from string columns.
+    """
+    df = pd.read_csv(path)
+    # Strip whitespace from all object columns
+    df_obj = df.select_dtypes(['object'])
+    df[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
+
+    return df
+
 
 if __name__ == "__main__":
-    clean_census_data("data/census.csv", "data/census_clean.csv")
+    # Example execution: clean_census_data('data/census.csv')
+    pass
