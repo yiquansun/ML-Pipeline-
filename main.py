@@ -51,21 +51,18 @@ class CensusData(BaseModel):
             }
         }
 
-
 model = None
 encoder = None
 lb = None
 
 
 def load_artifacts():
-    """Helper to load artifacts using the correct .joblib extensions."""
     global model, encoder, lb
     if model is None:
-        root = os.path.dirname(os.path.abspath(__file__))
-        # Updated extensions to match your image_581e69.png
-        model = joblib.load(os.path.join(root, "model", "model.joblib"))
-        encoder = joblib.load(os.path.join(root, "model", "encoder.joblib"))
-        lb = joblib.load(os.path.join(root, "model", "lb.joblib"))
+        # Using relative paths is safer across different environments
+        model = joblib.load("model/model.joblib")
+        encoder = joblib.load("model/encoder.joblib")
+        lb = joblib.load("model/lb.joblib")
 
 
 @app.on_event("startup")
@@ -80,9 +77,7 @@ async def get_root():
 
 @app.post("/predict")
 async def predict(data: CensusData):
-    # Ensure artifacts are loaded to avoid 'NoneType' errors
     load_artifacts()
-
     input_df = pd.DataFrame([data.dict(by_alias=True)])
     cat_features = [
         "workclass", "education", "marital-status", "occupation",
@@ -98,5 +93,6 @@ async def predict(data: CensusData):
     )
 
     prediction_raw = inference(model, X)
+    # Ensure lb is used to transform the numerical prediction back to a label
     prediction_label = lb.inverse_transform(prediction_raw)[0]
     return {"prediction": prediction_label}
