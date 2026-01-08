@@ -31,8 +31,8 @@ class CensusData(BaseModel):
     native_country: str = Field(..., alias="native-country", example="United-States")
 
     class Config:
-        allow_population_by_field_name = True
-        schema_extra = {
+        populate_by_name = True
+        json_schema_extra = {
             "example": {
                 "age": 39,
                 "workclass": "State-gov",
@@ -57,14 +57,20 @@ encoder = None
 lb = None
 
 
+def load_artifacts():
+    """Helper to load artifacts using the correct .joblib extensions."""
+    global model, encoder, lb
+    if model is None:
+        root = os.path.dirname(os.path.abspath(__file__))
+        # Updated extensions to match your image_581e69.png
+        model = joblib.load(os.path.join(root, "model", "model.joblib"))
+        encoder = joblib.load(os.path.join(root, "model", "encoder.joblib"))
+        lb = joblib.load(os.path.join(root, "model", "lb.joblib"))
+
+
 @app.on_event("startup")
 async def startup_event():
-    """Load model artifacts on startup."""
-    global model, encoder, lb
-    project_root = os.path.dirname(os.path.abspath(__file__))
-    model = joblib.load(os.path.join(project_root, "model", "model.pkl"))
-    encoder = joblib.load(os.path.join(project_root, "model", "encoder.pkl"))
-    lb = joblib.load(os.path.join(project_root, "model", "lb.pkl"))
+    load_artifacts()
 
 
 @app.get("/")
@@ -74,6 +80,9 @@ async def get_root():
 
 @app.post("/predict")
 async def predict(data: CensusData):
+    # Ensure artifacts are loaded to avoid 'NoneType' errors
+    load_artifacts()
+
     input_df = pd.DataFrame([data.dict(by_alias=True)])
     cat_features = [
         "workclass", "education", "marital-status", "occupation",
